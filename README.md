@@ -1,4 +1,4 @@
-# Reddit Data Engineering Pipeline using Apache Airflow (Astro)
+# Reddit Data Pipeline using Apache Airflow (Astro)
 
 This project demonstrates an **end-to-end data engineering pipeline**
 built using **Apache Airflow (Astronomer Runtime)** to extract Reddit
