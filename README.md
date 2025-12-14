@@ -14,6 +14,8 @@ The project is designed to be **production-style**, modular, and secure.
 Reddit API → Raw JSON → Refined CSV → Staging Table → Incremental Load →
 Fact & Dimension Tables → Cleanup
 
+![Architecture Diagram](pictures/architecture_diagram.jpg)
+
 **Core Components:** - Apache Airflow (Astro CLI) - Reddit API (PRAW) -
 PostgreSQL (Airflow-provided) - Pandas / PySpark-style transformations -
 SQL-based dimensional modeling
