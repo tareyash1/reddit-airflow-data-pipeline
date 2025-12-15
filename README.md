@@ -190,6 +190,8 @@ Creates: - `fact_reddit_posts` - `dim_subreddit` - `dim_author` -
 
 ## 🧱 Core Tables
 
+![ER Diagram](pictures/er_diagram.png)
+
 ### 1️⃣ stg_reddit_posts
 
 - Staging table that stores raw Reddit post data ingested from the source files with minimal transformations, used for data validation and cleansing before further processing.
