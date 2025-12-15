@@ -151,16 +151,6 @@ net stop postgresql-x64-15
 
 ------------------------------------------------------------------------
 
-### 8️⃣ Create Database
-
-This runs automatically via DAG, but manually:
-
-``` sql
-CREATE DATABASE af_reddit;
-```
-
-------------------------------------------------------------------------
-
 ## 🧩 DAGs Overview
 
 ### 1️⃣ reddit_extract_dag
@@ -200,29 +190,33 @@ Creates: - `fact_reddit_posts` - `dim_subreddit` - `dim_author` -
 
 ## 🧱 Core Tables
 
-### reddit_posts (Unique Table)
+### 1️⃣ stg_reddit_posts
 
-``` sql
-CREATE TABLE reddit_posts (
-    id TEXT PRIMARY KEY,
-    subreddit TEXT,
-    title TEXT,
-    author TEXT,
-    score INT,
-    num_comments INT,
-    upvote_ratio FLOAT,
-    downvote_ratio FLOAT,
-    url TEXT,
-    sentiment TEXT,
-    intent TEXT,
-    date_posted TEXT,
-    time_posted TEXT,
-    date_added TEXT NOT NULL,
-    time_added TEXT NOT NULL,
-    raw_source_file TEXT,
-    refined_source_file TEXT
-);
-```
+- Staging table that stores raw Reddit post data ingested from the source files with minimal transformations, used for data validation and cleansing before further processing.
+
+### 2️⃣ reddit_posts (Unique Records)
+
+- Deduplicated intermediate table that retains only unique Reddit posts based on business keys, ensuring no duplicate records flow into downstream fact tables.
+
+### 3️⃣ fact_reddit_posts
+
+- Fact table containing the core measurable Reddit post data (such as scores, comments count, sentiment, and timestamps), linked to dimension tables for analytical reporting.
+
+### 4️⃣ dim_author
+
+- Dimension table that stores unique Reddit author details, providing descriptive context for analyzing posts by user.
+
+### 5️⃣ dim_subreddit
+
+- Dimension table that captures subreddit metadata, enabling analysis of Reddit posts by community or topic.
+
+### 6️⃣ dim_raw_source_file
+
+- Dimension table that tracks metadata of raw ingested source files, supporting data lineage, auditing, and ingestion traceability.
+
+### 7️⃣ dim_refined_source_file
+
+- Dimension table that stores metadata for refined/processed source files, enabling end-to-end data lineage tracking from raw ingestion to curated datasets.
 
 ------------------------------------------------------------------------
 
